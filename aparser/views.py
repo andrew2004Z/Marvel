@@ -1,6 +1,5 @@
-from django.shortcuts import render
 from django.http import HttpResponse
-
+from django.shortcuts import render
 
 def index(request):
-    return HttpResponse('<h4>Hello World</h4>')
+    return render(request, '../templates/base.html') #здесь путь к нужному шаблону
