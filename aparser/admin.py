@@ -8,6 +8,7 @@ from .forms import ComicsForm, UsersForm
 @admin.register(Comics)
 class ComicsAdmin(admin.ModelAdmin):
     list_display = ('name', 'file_id', 'cover_id', 'colpage_pdf', 'count_views')
+    list_filter = ('count_views',)
     form = ComicsForm
 
 

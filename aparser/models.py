@@ -1,11 +1,10 @@
 from django.db import models
 
-from django.db import models
-
 
 class Comics(models.Model):
     name = models.TextField(
         verbose_name='Название',
+        primary_key=True
     )
 
     file_id = models.TextField(

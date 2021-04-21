@@ -53,7 +53,15 @@ def get_info_comics(name):
 
 
 def comics_change(name, count_reads):
-    Comics.objects.filter(name=name).update(count_reads=count_reads)
+    try:
+        c = Comics.objects.get(name=name)
+        c.count_views = count_reads
+        c.save()
+        return True
+    except Comics.DoesNotExist:
+        return False
+
+    #Comics.objects.filter(name=name).update(count_views=count_reads)
 
 
 def generate_keyb(keyboard, k, sp):
@@ -105,7 +113,7 @@ def comics_video(message):
         'Marvel'].keys():
         keybord_c = telebot.types.ReplyKeyboardMarkup(True, True)
         generate_keyb(keybord_c, message.text,
-                      read_json('comics.json'))
+                      read_json('data_json/comics.json'))
         keybord_c.row('В начало')
         bot.send_message(message.chat.id, f'Здесь есть множество комиксов из серии {message.text}',
                          reply_markup=keybord_c)
@@ -121,7 +129,8 @@ def comics_video(message):
     elif comics_in_base(message.text):
         print(get_info_comics(message.text)['cover_id'])
         c = get_info_comics(message.text)['colpage_pdf']
-        comics_change(message.text, get_info_comics(message.text)['count_reads'])
+        comics_change(message.text, get_info_comics(message.text)['count_views'] + 1)
+        print(get_info_comics(message.text))
         bot.send_photo(message.chat.id, get_info_comics(message.text)['cover_id'],
                        caption=f'{message.text}\nКоличество страниц: {c}')
         bot.send_document(
