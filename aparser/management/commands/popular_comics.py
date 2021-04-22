@@ -54,6 +54,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         #schedule.every().hour.do(popular)
-        schedule.every(10).seconds.do(popular)
-        while True:
-            schedule.run_pending()
+        #schedule.every(10).seconds.do(popular)
+        #while True:
+        #    schedule.run_pending()
+        popular()

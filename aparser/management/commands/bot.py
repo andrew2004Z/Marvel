@@ -2,7 +2,20 @@ import os
 import telebot
 import json
 from django.core.management.base import BaseCommand
-from aparser.models import Comics, Users
+from aparser.models import Comics, Users, PopularComics
+from PIL import Image
+from io import BytesIO
+
+
+def generate_data():
+    sp_data = []
+    for j, i in enumerate(PopularComics.objects.all().values()):
+        file_info = bot.get_file(i['cover_id'])
+        downloaded_file = bot.download_file(file_info.file_path)
+        src = f"static/temp/{j}.jpg"
+        sp_data.append([i['name'], src, i['count_views']])
+        Image.open(BytesIO(downloaded_file)).save(src)
+    return sp_data
 
 
 def check_v(message1):
@@ -61,7 +74,7 @@ def comics_change(name, count_reads):
     except Comics.DoesNotExist:
         return False
 
-    #Comics.objects.filter(name=name).update(count_views=count_reads)
+    # Comics.objects.filter(name=name).update(count_views=count_reads)
 
 
 def generate_keyb(keyboard, k, sp):
@@ -71,6 +84,7 @@ def generate_keyb(keyboard, k, sp):
 
 keyboard1 = telebot.types.ReplyKeyboardMarkup(True, True)
 keyboard1.row('Комиксы')
+keyboard1.row('Популярные комиксы')
 
 keyboard_comics = telebot.types.ReplyKeyboardMarkup(True, True)
 sp = read_json('data_json/comics.json')
@@ -106,6 +120,15 @@ def comics_video(message):
     if message.text == 'Комиксы':
         bot.send_message(message.chat.id, 'Тут ты сможешь найти множество комиксов Marvel',
                          reply_markup=keyboard_comics)
+    elif message.text == 'Популярные комиксы':
+        sp = generate_data()
+        sp = sp.sort()
+        keyboard_111 = telebot.types.ReplyKeyboardMarkup(True, True)
+        for i in sp:
+            keyboard_111.row(i[0])
+        keyboard_111.row('В начало')
+        bot.send_message(message.chat.id, f'5 самых популярных комиксов',
+                         reply_markup=keyboard_111)
     elif message.text == 'В начало':
         bot.send_message(message.chat.id, 'Вы вернулись в начало',
                          reply_markup=keyboard1)
@@ -115,8 +138,7 @@ def comics_video(message):
         generate_keyb(keybord_c, message.text,
                       read_json('data_json/comics.json'))
         keybord_c.row('В начало')
-        bot.send_message(message.chat.id, f'Здесь есть множество комиксов из серии {message.text}',
-                         reply_markup=keybord_c)
+
     elif check_v(message.text)[-1] == True:
         com = message.text + ' #'
         keybord_c1 = telebot.types.ReplyKeyboardMarkup(True, True)
