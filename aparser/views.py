@@ -15,11 +15,15 @@ def index(request):
 
 
 def popular_comics(request):
-    #sp_data = []
-    #for j, i in enumerate(PopularComics.objects.all().values()):
-    #    file_info = bot.get_file(i['cover_id'])
-    #    downloaded_file = bot.download_file(file_info.file_path)
-    #    src = f"static/temp/{j}.jpg"
-    #    sp_data.append([i['name'], src, i['count_views']])
-    #    Image.open(BytesIO(downloaded_file)).save(src)
+    # sp_data = []
+    # for i in PopularComics.objects.all().values():
+    #     file_info = bot.get_file(i['cover_id'])
+    #     downloaded_file = bot.download_file(file_info.file_path)
+    #     src = f"static/temp/{i['name']}.jpg"
+    #     sp_data.append([i['name'], src, i['count_views']])
+    #     Image.open(BytesIO(downloaded_file)).save(src)
     return render(request, '../templates/popular_comics.html')
+
+
+def popular_heroes(request):
+    return render(request, '../templates/popular_heroes.html')

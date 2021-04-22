@@ -122,7 +122,6 @@ def comics_video(message):
                          reply_markup=keyboard_comics)
     elif message.text == 'Популярные комиксы':
         sp = generate_data()
-        sp = sp.sort()
         keyboard_111 = telebot.types.ReplyKeyboardMarkup(True, True)
         for i in sp:
             keyboard_111.row(i[0])
