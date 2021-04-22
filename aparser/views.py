@@ -1,5 +1,11 @@
+import os
+from io import BytesIO
+
+from PIL import Image
 from django.http import HttpResponse
 from django.shortcuts import render
+from aparser.models import PopularComics
+import telebot
 
 
 def index(request):
@@ -7,4 +13,11 @@ def index(request):
 
 
 def popular_comics(request):
+    sp_data = []
+    for i in PopularComics.objects.all().values():
+        file_info = bot.get_file(i['cover_id'])
+        downloaded_file = bot.download_file(file_info.file_path)
+        src = f"static/temp/{i['name']}.jpg"
+        sp_data.append([i['name'], src, i['count_views']])
+        Image.open(BytesIO(downloaded_file)).save(src)
     return render(request, '../templates/popular_comics.html')
