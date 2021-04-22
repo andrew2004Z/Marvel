@@ -20,4 +20,5 @@ from aparser import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^$', views.index, name='index'),
+    path('popular_comics/', views.popular_comics),
 ]

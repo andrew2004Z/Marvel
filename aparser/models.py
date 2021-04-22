@@ -61,3 +61,33 @@ class Users(models.Model):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+
+
+class PopularComics(models.Model):
+    name = models.TextField(
+        verbose_name='Название',
+        primary_key=True
+    )
+
+    file_id = models.TextField(
+        verbose_name='ID комикса',
+    )
+
+    cover_id = models.TextField(
+        verbose_name='ID обложки комикса',
+    )
+
+    colpage_pdf = models.PositiveIntegerField(
+        verbose_name='Количество страниц',
+    )
+
+    count_views = models.PositiveIntegerField(
+        verbose_name='Количество просмотров',
+    )
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Популярный комикс'
+        verbose_name_plural = 'Популярные комиксы'
