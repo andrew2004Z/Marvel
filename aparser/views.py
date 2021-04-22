@@ -19,7 +19,7 @@ def popular_comics(request):
     for i in PopularComics.objects.all().values():
         file_info = bot.get_file(i['cover_id'])
         downloaded_file = bot.download_file(file_info.file_path)
-        src = f"{i['name']}.jpg"
+        src = f"static/temp/{i['name']}.jpg"
         sp_data.append([i['name'], src, i['count_views']])
-        Image.open(BytesIO(downloaded_file)).save('static/temp/' + src)
+        Image.open(BytesIO(downloaded_file)).save(src)
     return render(request, '../templates/popular_comics.html')
