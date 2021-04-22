@@ -45,8 +45,18 @@ class Users(models.Model):
         verbose_name='Количество прочтений',
     )
 
+    username = models.TextField(
+        verbose_name='Имя пользователя',
+        default='user'
+    )
+
+    password = models.TextField(
+        verbose_name='Пароль',
+        default='password'
+    )
+
     def __str__(self):
-        return f'№{self.user_id} {self.type_user}'
+        return f'№{self.user_id} {self.username}'
 
     class Meta:
         verbose_name = 'Пользователь'

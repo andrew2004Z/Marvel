@@ -14,5 +14,5 @@ class ComicsAdmin(admin.ModelAdmin):
 
 @admin.register(Users)
 class UsersAdmin(admin.ModelAdmin):
-    list_display = ('user_id', 'type_user', 'count_reads')
+    list_display = ('user_id', 'type_user', 'username', 'password')
     form = UsersForm

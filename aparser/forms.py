@@ -25,9 +25,13 @@ class UsersForm(forms.ModelForm):
         fields = (
             'user_id',
             'type_user',
-            'count_reads'
+            'count_reads',
+            'username',
+            'password'
         )
         widgets = {
             'user_id': forms.TextInput,
-            'type_user': forms.TextInput
+            'type_user': forms.TextInput,
+            'username': forms.TextInput,
+            'password': forms.TextInput,
         }
