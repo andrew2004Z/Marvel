@@ -23,14 +23,18 @@ class Comics(models.Model):
         verbose_name='Количество просмотров',
     )
 
+    def __str__(self):
+        return f'{self.name}'
+
     class Meta:
-        verbose_name = 'Comics'
-        verbose_name_plural = 'Comics'
+        verbose_name = 'Комикс'
+        verbose_name_plural = 'Комиксы'
 
 
 class Users(models.Model):
     user_id = models.TextField(
         verbose_name='ID пользователя',
+        unique=True,
     )
 
     type_user = models.TextField(
@@ -41,6 +45,9 @@ class Users(models.Model):
         verbose_name='Количество прочтений',
     )
 
+    def __str__(self):
+        return f'№{self.user_id} {self.type_user}'
+
     class Meta:
-        verbose_name = 'Users'
-        verbose_name_plural = 'Users'
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
