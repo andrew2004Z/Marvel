@@ -10,11 +10,11 @@ from io import BytesIO
 def generate_data():
     sp_data = []
     for j, i in enumerate(PopularComics.objects.all().values()):
-        file_info = bot.get_file(i['cover_id'])
-        downloaded_file = bot.download_file(file_info.file_path)
-        src = f"static/temp/{j}.jpg"
-        sp_data.append([i['name'], src, i['count_views']])
-        Image.open(BytesIO(downloaded_file)).save(src)
+        #file_info = bot.get_file(i['cover_id'])
+        #downloaded_file = bot.download_file(file_info.file_path)
+        #src = f"static/temp/{j}.jpg"
+        sp_data.append([i['name'], i['count_views']])
+        #Image.open(BytesIO(downloaded_file)).save(src)
     return sp_data
 
 
