@@ -90,6 +90,7 @@ keyboard_comics = telebot.types.ReplyKeyboardMarkup(True, True)
 sp = read_json('data_json/comics.json')
 for i in sp['url_comics']['Marvel'].keys():
     keyboard_comics.row(i)
+keyboard_comics.row('В начало')
 
 
 def generate_key(name, col):
@@ -137,7 +138,8 @@ def comics_video(message):
         generate_keyb(keybord_c, message.text,
                       read_json('data_json/comics.json'))
         keybord_c.row('В начало')
-
+    bot.send_message(message.chat.id, f'Здесь есть серий комиксов {message.text}',
+                     reply_markup=keybord_c)
     elif check_v(message.text)[-1] == True:
         com = message.text + ' #'
         keybord_c1 = telebot.types.ReplyKeyboardMarkup(True, True)
